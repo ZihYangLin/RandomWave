@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="waveGravity" format="enum">
+        <enum name="Top" value="1" />
+        <enum name="Bottom" value="2" />
+    </attr>
+
+    <attr name="numberOfWaves" format="float" />
+    <attr name="waveColor" format="color" />
+    <attr name="animatorEnable" format="boolean" />
+
+    <declare-styleable name="YPRandomWave">
+        <attr name="waveGravity" />
+        <attr name="numberOfWaves" />
+        <attr name="waveColor" />
+        <attr name="animatorEnable" />
+    </declare-styleable>
+</resources>
