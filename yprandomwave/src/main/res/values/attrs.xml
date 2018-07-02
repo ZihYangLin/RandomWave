@@ -4,6 +4,10 @@
         <enum name="Top" value="1" />
         <enum name="Bottom" value="2" />
     </attr>
+    <attr name="direction" format="enum">
+        <enum name="Left" value="1" />
+        <enum name="Right" value="2" />
+    </attr>
 
     <attr name="numberOfWaves" format="float" />
     <attr name="waveColor" format="color" />
@@ -14,5 +18,6 @@
         <attr name="numberOfWaves" />
         <attr name="waveColor" />
         <attr name="animatorEnable" />
+        <attr name="direction" />
     </declare-styleable>
 </resources>

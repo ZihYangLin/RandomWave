@@ -41,18 +41,37 @@ public class YPRandomWave extends View {
         }
     }
 
+    public enum Direction {
+        Left(1), Right(2);
+        int value;
+
+        Direction(int value) {
+            this.value = value;
+        }
+
+        static Direction fromValue(int value) {
+            for (Direction direction : values()) {
+                if (direction.value == value) return direction;
+            }
+            return Right;
+        }
+    }
+
 
     /*Default Value*/
     private static final boolean DEFAULT_IS_ANIMATION = false;
     private static final int DEFAULT_WAVE_COLOR = Color.parseColor("#40FF0000");
     private static final float DEFAULT_NUMBER_OF_WAVES = 3.5f;
     private static final Gravity DEFAULT_WAVE_GRAVITY = Gravity.Bottom;
+    private static final Direction DEFAULT_WAVE_DIRECTION = Direction.Right;
 
 
     /*參數*/
     private boolean isAnimation = DEFAULT_IS_ANIMATION;
     private float waveCount = DEFAULT_NUMBER_OF_WAVES;
     private Gravity waveGravity = DEFAULT_WAVE_GRAVITY;
+    private Direction waveDirection = DEFAULT_WAVE_DIRECTION;
+
 
     private HandlerThread thread = new HandlerThread("YPWaveView_" + hashCode());
     private Handler animHandler, uiHandler;
@@ -79,7 +98,18 @@ public class YPRandomWave extends View {
         isAnimation = attributes.getBoolean(R.styleable.YPRandomWave_animatorEnable, DEFAULT_IS_ANIMATION);
         waveCount = attributes.getFloat(R.styleable.YPRandomWave_numberOfWaves, DEFAULT_NUMBER_OF_WAVES);
         int waveColor = attributes.getColor(R.styleable.YPRandomWave_waveColor, DEFAULT_WAVE_COLOR);
-        waveGravity = Gravity.fromValue(attributes.getInt(R.styleable.YPRandomWave_waveGravity, Gravity.Bottom.value));
+        waveGravity = Gravity.fromValue(attributes.getInt(R.styleable.YPRandomWave_waveGravity, DEFAULT_WAVE_GRAVITY.value));
+        waveDirection = Direction.fromValue(attributes.getInt(R.styleable.YPRandomWave_direction, DEFAULT_WAVE_DIRECTION.value));
+
+        /*設定行徑方向*/
+        switch (waveDirection) {
+            case Left:
+                setScaleX(1f);
+                break;
+            case Right:
+                setScaleX(-1f);
+                break;
+        }
 
         /*設定畫筆*/
         mPaint3 = new Paint();
@@ -97,6 +127,7 @@ public class YPRandomWave extends View {
         thread.start();
         animHandler = new Handler(thread.getLooper());
         uiHandler = new UIHandler(new WeakReference<View>(this));
+
 
     }
 
@@ -121,42 +152,46 @@ public class YPRandomWave extends View {
                 path1.addPath(createWave());
             }
         }
-        if (!isAnimation) {
-            isAnimation = true;
-            animHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    shift -= 2; //位移量
-                    if (shift <= -lastWaveX) {
-                        shift = 0;
-                        lastWaveX = 0;
-                    }
-                    path1 = createWave();
-                    if (Math.abs(shift) % getWidth() > getWidth() - 50) {
-                        if (!isRefresh) {
-
-                        }
-                    } else {
-                        isRefresh = false;
-                    }
-                    Message message = Message.obtain(uiHandler);
-                    message.sendToTarget();
-                    animHandler.postDelayed(this, 10);
-                }
-            });
+        if (isAnimation) {
+            runAnimation();
         }
         invalidate();
     }
 
+    public void setAnimation(boolean isAnimation) {
+        this.isAnimation = isAnimation;
+        if (this.isAnimation) {
+            runAnimation();
+        }
+    }
+
     /**
-     * 調整頻率
-     *
-     * @param frequency 1-32
+     * 開始動畫
      */
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-        path1 = createWave();
-        invalidate();
+    private void runAnimation() {
+        animHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                shift -= 2; //位移量
+                if (shift <= -lastWaveX) {
+                    shift = 0;
+                    lastWaveX = 0;
+                }
+                path1 = createWave();
+                if (Math.abs(shift) % getWidth() > getWidth() - 50) {
+                    if (!isRefresh) {
+
+                    }
+                } else {
+                    isRefresh = false;
+                }
+                if (isAnimation) {
+                    Message message = Message.obtain(uiHandler);
+                    message.sendToTarget();
+                    animHandler.postDelayed(this, 20);
+                }
+            }
+        });
     }
 
     /**

@@ -9,18 +9,19 @@
     <com.yangpingapps.YPRandomWave
         android:id="@+id/random_view1"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:numberOfWaves="3.5"
-        app:animatorEnable="false"
+        android:layout_height="200dp"
+        app:numberOfWaves="3.2"
+        app:animatorEnable="true"
         app:waveColor="#60519dea" />
 
     <com.yangpingapps.YPRandomWave
         android:layout_width="match_parent"
         android:id="@+id/random_view2"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         app:animatorEnable="false"
-        app:numberOfWaves="5"
+        app:numberOfWaves="3.8"
         app:waveColor="#60519dea"
+        app:direction="Left"
         app:waveGravity="Bottom" />
 
 </FrameLayout>
