@@ -13,7 +13,7 @@
     <attr name="waveColor" format="color" />
     <attr name="animatorEnable" format="boolean" />
 
-    <declare-styleable name="YPRandomWave">
+    <declare-styleable name="RandomWave">
         <attr name="waveGravity" />
         <attr name="numberOfWaves" />
         <attr name="waveColor" />

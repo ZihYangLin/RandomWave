@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.yangpingapps.YPRandomWave
+    <com.yangpingapps.RandomWave
         android:id="@+id/random_view1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -14,7 +14,7 @@
         app:animatorEnable="true"
         app:waveColor="#60519dea" />
 
-    <com.yangpingapps.YPRandomWave
+    <com.yangpingapps.RandomWave
         android:layout_width="match_parent"
         android:id="@+id/random_view2"
         android:layout_height="200dp"

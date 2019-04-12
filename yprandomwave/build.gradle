@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
 
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion 16
+        targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -26,9 +26,36 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+repositories {
+    mavenCentral()
+}
+ext {
+    bintrayRepo = 'Libraries'
+    bintrayName = 'RandomWave'
+
+    publishedGroupId = 'com.yangping'   //函式庫的Group名稱
+    libraryName = 'randomwave'           //函式庫名稱
+    artifact = 'randomwave'              //元件名稱
+
+    libraryDescription = 'RandomWave for android. A wave-like view on Android, and Its amplitude random.'
+    //函式庫敘述
+
+    siteUrl = 'https://github.com/ZihYangLin/RandomWave'
+    //函式庫頁面
+
+    gitUrl = 'https://github.com/ZihYangLin/RandomWave.git'
+    //函式庫Git位置
+
+    libraryVersion = '1.0.0'                //函式庫版號
+
+    developerId = 'zihyanglin'              //開發者id
+    developerName = 'Zhi-Yang Lin'          //開發者名稱
+    developerEmail = 'zcbxvsdf@gmail.com'   //開發者email
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+apply from: "install.gradle"
+apply from: "bintray.gradle"

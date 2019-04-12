@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,7 +22,7 @@ import java.util.Random;
  * Created by TzYang on 2018/5/20.
  */
 
-public class YPRandomWave extends View {
+public class RandomWave extends View {
     /*類型常數*/
     public enum Gravity {
         Top(1), Bottom(2);
@@ -83,23 +82,23 @@ public class YPRandomWave extends View {
     private boolean isRefresh = false;
     private int lastWaveX = 0;
 
-    public YPRandomWave(Context context) {
+    public RandomWave(Context context) {
         this(context, null, 0);
     }
 
-    public YPRandomWave(Context context, @Nullable AttributeSet attrs) {
+    public RandomWave(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public YPRandomWave(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RandomWave(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         /*取得XML參數*/
-        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.YPRandomWave, defStyleAttr, 0);
-        isAnimation = attributes.getBoolean(R.styleable.YPRandomWave_animatorEnable, DEFAULT_IS_ANIMATION);
-        waveCount = attributes.getFloat(R.styleable.YPRandomWave_numberOfWaves, DEFAULT_NUMBER_OF_WAVES);
-        int waveColor = attributes.getColor(R.styleable.YPRandomWave_waveColor, DEFAULT_WAVE_COLOR);
-        waveGravity = Gravity.fromValue(attributes.getInt(R.styleable.YPRandomWave_waveGravity, DEFAULT_WAVE_GRAVITY.value));
-        waveDirection = Direction.fromValue(attributes.getInt(R.styleable.YPRandomWave_direction, DEFAULT_WAVE_DIRECTION.value));
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.RandomWave, defStyleAttr, 0);
+        isAnimation = attributes.getBoolean(R.styleable.RandomWave_animatorEnable, DEFAULT_IS_ANIMATION);
+        waveCount = attributes.getFloat(R.styleable.RandomWave_numberOfWaves, DEFAULT_NUMBER_OF_WAVES);
+        int waveColor = attributes.getColor(R.styleable.RandomWave_waveColor, DEFAULT_WAVE_COLOR);
+        waveGravity = Gravity.fromValue(attributes.getInt(R.styleable.RandomWave_waveGravity, DEFAULT_WAVE_GRAVITY.value));
+        waveDirection = Direction.fromValue(attributes.getInt(R.styleable.RandomWave_direction, DEFAULT_WAVE_DIRECTION.value));
 
         /*設定行徑方向*/
         switch (waveDirection) {
